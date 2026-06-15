@@ -1,0 +1,42 @@
+# Database Configuration
+spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/walletdb}
+spring.datasource.driverClassName=${SPRING_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME:postgres}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:postgres}
+spring.jpa.database-platform=${SPRING_JPA_DATABASE_PLATFORM:org.hibernate.dialect.PostgreSQLDialect}
+
+# Hibernate DDL Auto Schema Creation
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+# H2 Console Configuration
+spring.h2.console.enabled=false
+
+# Multipart Upload Limits (for receipt scanning image uploads)
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=50MB
+
+# OAuth2 Resource Server JWT Configuration (Firebase's Public Key Certs for OIDC validation)
+spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com
+
+
+mistral.api-key=3e...21
+openrouter.api-key=3e...21
+
+# Provider Configurations (OCP settings)
+recipewallet.ocr.provider=${RECIPEWALLET_OCR_PROVIDER:mistral}
+recipewallet.llm.provider=${RECIPEWALLET_LLM_PROVIDER:openrouter}
+recipewallet.llm.model=${RECIPEWALLET_LLM_MODEL:google/gemma-3-27b-it}
+recipewallet.storage.provider=${RECIPEWALLET_STORAGE_PROVIDER:disk}
+recipewallet.firebase.storage-bucket=3e...21.firebasestorage.app
+
+# Local Disk Storage Configuration
+recipewallet.storage.disk.upload-dir=uploads
+recipewallet.storage.disk.base-url=http://localhost:8080/uploads/
+
+LANGFUSE_SECRET_KEY="sk-3e...21"
+LANGFUSE_PUBLIC_KEY="pk-3e...21"
+LANGFUSE_BASE_URL="http://localhost:3000"
+
+# https://app.exchangerate-api.com/dashboard/confirmed
+exchagerate.api-key=3e...21 
