@@ -61,6 +61,6 @@ jobs:
           username: github-deploy
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /opt/recipe_wallet_app # <--- UPDATE THIS TO YOUR SERVER'S ACTUAL PATH
+            cd /root/smartwallet
             podman-compose pull backend
             podman-compose up -d

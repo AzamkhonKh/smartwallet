@@ -2,14 +2,14 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:16-alpine
+    image: docker.io/library/postgres:16-alpine
     container_name: recipe-wallet-db
     environment:
       - POSTGRES_DB=walletdb
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - "5433:5432"
+      - "127.0.0.1:5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
@@ -24,7 +24,7 @@ services:
     image: ghcr.io/azamkhonkh/recipe-wallet-backend:latest
     container_name: recipe-wallet-backend
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     volumes:
       - ./uploads:/app/uploads
     depends_on:
@@ -41,13 +41,13 @@ services:
     restart: unless-stopped
 
   langfuse:
-    image: langfuse/langfuse:latest
+    image: docker.io/langfuse/langfuse:2
     container_name: recipe-wallet-langfuse
     depends_on:
       db:
         condition: service_healthy
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     env_file:
       - .env
     environment:
