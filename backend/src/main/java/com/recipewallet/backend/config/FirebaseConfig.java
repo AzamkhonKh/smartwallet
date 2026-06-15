@@ -5,16 +5,21 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.beans.factory.annotation.Value;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class FirebaseConfig {
 
-    @org.springframework.beans.factory.annotation.Value("${recipewallet.firebase.storage-bucket:office-market-27ec0.firebasestorage.app}")
+    @Value("${recipewallet.firebase.storage-bucket:office-market-27ec0.firebasestorage.app}")
     private String storageBucket;
+
+    @Value("${recipewallet.firebase.credentials}")
+    private String firebaseCredentials;
 
     @Bean
     public FirebaseApp firebaseApp() throws IOException {
@@ -22,8 +27,7 @@ public class FirebaseConfig {
             return FirebaseApp.getInstance();
         }
 
-        ClassPathResource resource = new ClassPathResource("firebase-resource.json");
-        try (InputStream serviceAccount = resource.getInputStream()) {
+        try (InputStream serviceAccount = new ByteArrayInputStream(firebaseCredentials.getBytes(StandardCharsets.UTF_8))) {
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setStorageBucket(storageBucket)
