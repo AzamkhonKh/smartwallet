@@ -30,6 +30,7 @@ class _AccountsScreenState extends State<AccountsScreen> {
     setState(() => _isLoading = true);
     try {
       final data = await widget.apiService.getAccounts();
+      if (!mounted) return;
       setState(() {
         _accounts = data;
         _isLoading = false;

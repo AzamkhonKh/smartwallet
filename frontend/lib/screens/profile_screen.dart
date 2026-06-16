@@ -38,6 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() => _isLoading = true);
     try {
       final profile = await widget.apiService.getCurrentUser();
+      if (!mounted) return;
       setState(() {
         _userFullName = profile['name'] ?? 'Demo User';
         _primaryCurrency = profile['primaryCurrency'] ?? 'USD';
@@ -45,6 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _isLoading = false;
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() => _isLoading = false);
       debugPrint("Failed to load profile: $e");
     }

@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'api_exception.dart';
 import 'auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
@@ -14,7 +15,7 @@ class ApiService {
   ApiService(this.authService);
 
   String get baseUrl {
-    const String envUrl = String.fromEnvironment('API_BASE_URL', defaultValue: '');
+    final String envUrl = dotenv.env['API_BASE_URL'] ?? String.fromEnvironment('API_BASE_URL', defaultValue: '');
     if (envUrl.isNotEmpty) {
       return envUrl;
     }

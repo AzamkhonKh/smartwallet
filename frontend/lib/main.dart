@@ -9,10 +9,16 @@ import 'services/locale_provider.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'firebase_options.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await dotenv.load(fileName: kReleaseMode ? ".env.production" : ".env.development");
+  } catch (e) {
+    debugPrint("Failed to load .env file: $e");
+  }
+
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
