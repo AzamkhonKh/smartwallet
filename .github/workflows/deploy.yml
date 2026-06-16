@@ -61,6 +61,6 @@ jobs:
           username: github-deploy
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /root/smartwallet
+            cd /srv/smartwallet
             podman-compose pull backend
             podman-compose up -d
