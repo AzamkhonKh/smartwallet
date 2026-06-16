@@ -1,7 +1,7 @@
 // Uzbek (Cyrillic script) strings
 const Map<String, String> stringsUzCyrl = {
   // App
-  'appTitle': 'NEO WALLET',
+  'appTitle': 'Spendy',
   'appSubtitle': 'AI-асосида чек ва ҳамён кузатув тизими',
 
   // Bottom navigation

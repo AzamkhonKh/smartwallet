@@ -127,30 +127,7 @@ class _LoginScreenState extends State<LoginScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Glow wallet icon
-                    Container(
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF6C63FF).withValues(alpha: 0.4),
-                            blurRadius: 40,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF6C63FF), Color(0xFF00D2FF)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                      ),
-                      child: const Icon(
-                        Icons.account_balance_wallet_rounded,
-                        size: 64,
-                        color: Colors.white,
-                      ),
-                    ),
+
                     const SizedBox(height: 32),
                     Text(
                       l10n.appTitle,
@@ -269,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen>
                               elevation: 0,
                             ),
                             icon: Image.network(
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/24px-Google_%22G%22_logo.svg.png',
+                              'https://developers.google.com/identity/images/g-logo.png',
                               height: 20,
                               errorBuilder: (c, o, s) =>
                                   const Icon(Icons.g_mobiledata, size: 24),

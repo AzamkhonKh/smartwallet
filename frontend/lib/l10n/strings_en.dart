@@ -1,7 +1,7 @@
 // English strings
 const Map<String, String> stringsEn = {
   // App
-  'appTitle': 'NEO WALLET',
+  'appTitle': 'Spendy',
   'appSubtitle': 'Intelligent AI-Powered Receipts & Wallet Tracker',
 
   // Bottom navigation

@@ -1,7 +1,7 @@
 // Russian strings
 const Map<String, String> stringsRu = {
   // App
-  'appTitle': 'NEO WALLET',
+  'appTitle': 'Spendy',
   'appSubtitle': 'Умный ИИ-трекер чеков и кошелька',
 
   // Bottom navigation

@@ -1,7 +1,7 @@
 // Uzbek (Latin script) strings
 const Map<String, String> stringsUz = {
   // App
-  'appTitle': 'NEO WALLET',
+  'appTitle': 'Spendy',
   'appSubtitle': 'AI-asosida chek va hamyon kuzatuv tizimi',
 
   // Bottom navigation
