@@ -1,4 +1,4 @@
-REGISTRY ?= your-docker-registry
+REGISTRY ?= ghcr.io/azamkhonkh
 IMAGE_NAME ?= recipe-wallet-backend
 TAG ?= latest
 
