@@ -22,6 +22,7 @@ import java.util.Optional;
 public class FirebaseAuthenticationFilter extends OncePerRequestFilter {
 
     private final UserRepository userRepository;
+    private final String appMode;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -39,6 +40,9 @@ public class FirebaseAuthenticationFilter extends OncePerRequestFilter {
         try {
             User user;
             if (token.startsWith("mock-token-")) {
+                if (!"dev".equalsIgnoreCase(appMode)) {
+                    throw new RuntimeException("Mock tokens are not allowed in this environment (mode: " + appMode + ").");
+                }
                 // Handle local mock testing tokens
                 String tokenValue = token.substring(11);
                 String email = null;

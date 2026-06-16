@@ -28,14 +28,14 @@ public class AccountController {
     @GetMapping
     public ResponseEntity<List<AccountResponseDto>> getAccounts(@AuthenticationPrincipal User user) {
         List<Account> accounts = accountRepository.findByUser(user);
-        
+
         // Auto-initialize standard account if none exist
         if (accounts.isEmpty()) {
             Account defaultAccount = Account.builder()
                     .id(UUID.randomUUID().toString())
                     .name("Primary Wallet")
                     .type(AccountType.CASH_WALLET)
-                    .balance(BigDecimal.valueOf(1000.00))
+                    .balance(BigDecimal.valueOf(0.00))
                     .currency("USD")
                     .user(user)
                     .build();
