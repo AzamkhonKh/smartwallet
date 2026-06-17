@@ -54,3 +54,7 @@ android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 macos/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
+
+# Local developer overrides
+ios/Flutter/local.xcconfig
+ios/Flutter/Generated.xcconfig
