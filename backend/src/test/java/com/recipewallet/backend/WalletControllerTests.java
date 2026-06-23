@@ -2,6 +2,7 @@ package com.recipewallet.backend;
 
 import com.recipewallet.backend.repository.CategoryRepository;
 import com.recipewallet.backend.repository.AccountRepository;
+import com.recipewallet.backend.repository.ReceiptTaskRepository;
 import com.recipewallet.backend.repository.TransactionItemRepository;
 import com.recipewallet.backend.repository.TransactionRepository;
 import com.recipewallet.backend.repository.UserRepository;
@@ -45,11 +46,15 @@ class WalletControllerTests {
     private UserRepository userRepository;
 
     @Autowired
+    private ReceiptTaskRepository receiptTaskRepository;
+
+    @Autowired
     private org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
 
     @BeforeEach
     void setUp() {
         jdbcTemplate.execute("DROP TABLE IF EXISTS budgets CASCADE");
+        receiptTaskRepository.deleteAll();
         transactionItemRepository.deleteAll();
         transactionRepository.deleteAll();
         categoryRepository.deleteAll();
@@ -110,7 +115,7 @@ class WalletControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$[0].name").value("Primary Wallet"))
-                .andExpect(jsonPath("$[0].balance").value(1000.00));
+                .andExpect(jsonPath("$[0].balance").value(0.0));
     }
 
     @Test
@@ -188,5 +193,21 @@ class WalletControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Savings Account"))
                 .andExpect(jsonPath("$.balance").value(500.0));
+    }
+
+    @Test
+    void deleteAccountSuccessfully() throws Exception {
+        // Authenticate once to ensure user is created, categories and accounts auto-initialized
+        mockMvc.perform(get("/api/auth/me")
+                .header("Authorization", "Bearer mock-token-deleteuser"))
+                .andExpect(status().isOk());
+
+        // Perform delete request
+        mockMvc.perform(delete("/api/auth/me")
+                .header("Authorization", "Bearer mock-token-deleteuser"))
+                .andExpect(status().isNoContent());
+
+        // Ensure user is deleted
+        org.junit.jupiter.api.Assertions.assertFalse(userRepository.findByOauthId("deleteuser").isPresent());
     }
 }

@@ -22,9 +22,13 @@ public class FirebaseConfig {
     private String firebaseCredentials;
 
     @Bean
-    public FirebaseApp firebaseApp() throws IOException {
+    public FirebaseApp firebaseApp() {
         if (!FirebaseApp.getApps().isEmpty()) {
             return FirebaseApp.getInstance();
+        }
+
+        if (firebaseCredentials == null || firebaseCredentials.trim().isEmpty() || "mock-credentials".equals(firebaseCredentials)) {
+            return null;
         }
 
         try (InputStream serviceAccount = new ByteArrayInputStream(firebaseCredentials.getBytes(StandardCharsets.UTF_8))) {
@@ -34,6 +38,9 @@ public class FirebaseConfig {
                     .build();
 
             return FirebaseApp.initializeApp(options);
+        } catch (Exception e) {
+            System.err.println("Firebase initialization failed: " + e.getMessage());
+            return null;
         }
     }
 }

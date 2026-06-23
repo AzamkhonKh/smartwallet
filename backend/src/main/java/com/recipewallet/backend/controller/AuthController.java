@@ -4,6 +4,10 @@ import com.recipewallet.backend.dto.UserResponseDto;
 import com.recipewallet.backend.dto.UserProfileRequestDto;
 import com.recipewallet.backend.model.User;
 import com.recipewallet.backend.repository.UserRepository;
+import com.recipewallet.backend.repository.AccountRepository;
+import com.recipewallet.backend.repository.CategoryRepository;
+import com.recipewallet.backend.repository.TransactionRepository;
+import com.recipewallet.backend.repository.ReceiptTaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +19,21 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
+    private final CategoryRepository categoryRepository;
+    private final TransactionRepository transactionRepository;
+    private final ReceiptTaskRepository receiptTaskRepository;
+
+    @DeleteMapping("/me")
+    @org.springframework.transaction.annotation.Transactional
+    public ResponseEntity<Void> deleteAccount(@AuthenticationPrincipal User user) {
+        receiptTaskRepository.deleteByUser(user);
+        transactionRepository.deleteByUser(user);
+        categoryRepository.deleteByUser(user);
+        accountRepository.deleteByUser(user);
+        userRepository.delete(user);
+        return ResponseEntity.noContent().build();
+    }
 
     @GetMapping("/me")
     public ResponseEntity<UserResponseDto> getCurrentUser(@AuthenticationPrincipal User user) {

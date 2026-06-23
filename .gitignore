@@ -1,3 +1,6 @@
 .env
 uploads/*
 .DS_Store
+
+.agents
+graphify-out
