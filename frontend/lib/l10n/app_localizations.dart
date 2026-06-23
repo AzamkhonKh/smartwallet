@@ -51,6 +51,7 @@ class AppLocalizations {
   String get loginDemoUsername => _s('loginDemoUsername');
   String get loginDemoButton => _s('loginDemoButton');
   String get loginSignInFailed => _s('loginSignInFailed');
+  String get loginApple => _s('loginApple');
 
   // ── Home ──────────────────────────────────────────────────────────────────
   String get homeGreeting => _s('homeGreeting');
@@ -160,6 +161,10 @@ class AppLocalizations {
   String get profileAccountOps => _s('profileAccountOps');
   String get profileLogout => _s('profileLogout');
   String get profileLogoutSubtitle => _s('profileLogoutSubtitle');
+  String get profileDeleteAccount => _s('profileDeleteAccount');
+  String get profileDeleteAccountSubtitle => _s('profileDeleteAccountSubtitle');
+  String get deleteAccountConfirmTitle => _s('deleteAccountConfirmTitle');
+  String get deleteAccountConfirmContent => _s('deleteAccountConfirmContent');
 
   // ── Language picker ───────────────────────────────────────────────────────
   String get languageSelect => _s('languageSelect');

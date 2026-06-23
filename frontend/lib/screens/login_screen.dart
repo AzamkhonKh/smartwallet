@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
@@ -262,6 +263,43 @@ class _LoginScreenState extends State<LoginScreen>
                               setState(() => _isLoading = true);
                               try {
                                 await Provider.of<AuthService>(context, listen: false).loginWithGoogle();
+                              } catch (e) {
+                                _showError('${l10n.loginSignInFailed}: ${e.toString().split(']').last.trim()}');
+                              } finally {
+                                if (mounted) setState(() => _isLoading = false);
+                              }
+                            },
+                          ),
+                          const SizedBox(height: 12),
+                          // Apple Sign-In Button
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                side: const BorderSide(color: Colors.white24),
+                              ),
+                              elevation: 0,
+                            ),
+                            icon: const Icon(
+                              Icons.apple,
+                              size: 22,
+                              color: Colors.white,
+                            ),
+                            label: Text(
+                              l10n.loginApple,
+                              style: GoogleFonts.inter(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: _isLoading ? null : () async {
+                              setState(() => _isLoading = true);
+                              try {
+                                await Provider.of<AuthService>(context, listen: false).loginWithApple();
                               } catch (e) {
                                 _showError('${l10n.loginSignInFailed}: ${e.toString().split(']').last.trim()}');
                               } finally {

@@ -17,6 +17,7 @@ const Map<String, String> stringsUzCyrl = {
   'loginDemoUsername': 'Демо фойдаланувчи',
   'loginDemoButton': 'Демо сифатида кириш',
   'loginSignInFailed': 'Киришда хато',
+  'loginApple': 'Apple орқали кириш',
 
   // Home screen
   'homeGreeting': 'Хайрли кун',
@@ -118,6 +119,10 @@ const Map<String, String> stringsUzCyrl = {
   'profileAccountOps': 'ҲИСОБ АМАЛЛАРИ',
   'profileLogout': 'Чиқиш',
   'profileLogoutSubtitle': 'Ақлли ҳамёндан чиқиш',
+  'profileDeleteAccount': 'Ҳисобни ўчириш',
+  'profileDeleteAccountSubtitle': 'Ҳисобни ва барча маълумотларни бутунлай ўчириш',
+  'deleteAccountConfirmTitle': 'Ҳисоб ўчирилсинми?',
+  'deleteAccountConfirmContent': 'Ишончингиз комилми? Барча маълумотларингиз (трансакциялар, ҳисоблар, категориялар) бутунлай ўчирилади ва буни тиклаб бўлмайди.',
 
   // Language picker
   'languageSelect': 'Тилни танланг',

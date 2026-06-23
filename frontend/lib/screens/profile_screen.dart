@@ -254,6 +254,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  Future<void> _confirmDeleteAccount() async {
+    final l10n = AppLocalizations.of(context);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF101424),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: Text(
+            l10n.deleteAccountConfirmTitle,
+            style: GoogleFonts.outfit(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            l10n.deleteAccountConfirmContent,
+            style: GoogleFonts.inter(color: Colors.white70),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(
+                l10n.cancel,
+                style: const TextStyle(color: Colors.white60),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE94560),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(
+                l10n.delete,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed == true) {
+      setState(() => _isLoading = true);
+      try {
+        await Provider.of<AuthService>(context, listen: false).deleteAccount(widget.apiService);
+      } catch (e) {
+        if (mounted) {
+          setState(() => _isLoading = false);
+          AppSnackBar.fromException(context, e);
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -399,12 +455,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SectionHeader(l10n.profileAccountOps),
                 const SizedBox(height: 12),
                 GlassCard(
-                  child: _buildSettingsTile(
-                    icon: Icons.logout_rounded,
-                    iconColor: const Color(0xFFC70039),
-                    title: l10n.profileLogout,
-                    subtitle: l10n.profileLogoutSubtitle,
-                    onTap: () => Provider.of<AuthService>(context, listen: false).logout(),
+                  child: Column(
+                    children: [
+                      _buildSettingsTile(
+                        icon: Icons.logout_rounded,
+                        iconColor: const Color(0xFFC70039),
+                        title: l10n.profileLogout,
+                        subtitle: l10n.profileLogoutSubtitle,
+                        onTap: () => Provider.of<AuthService>(context, listen: false).logout(),
+                      ),
+                      Divider(color: Colors.white.withValues(alpha: 0.05), height: 1),
+                      _buildSettingsTile(
+                        icon: Icons.delete_forever_rounded,
+                        iconColor: const Color(0xFFE94560),
+                        title: l10n.profileDeleteAccount,
+                        subtitle: l10n.profileDeleteAccountSubtitle,
+                        onTap: _confirmDeleteAccount,
+                      ),
+                    ],
                   ),
                 ),
               ],

@@ -1,7 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+import 'dart:math';
 
 class AuthService extends ChangeNotifier {
   bool _isAuthenticated = false;
@@ -70,6 +73,44 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  // Apple Sign-In using Firebase (Mobile & Web)
+  Future<bool> loginWithApple() async {
+    try {
+      if (kIsWeb) {
+        final appleProvider = fb_auth.OAuthProvider('apple.com');
+        await _fbAuth.signInWithPopup(appleProvider);
+        return true;
+      } else {
+        final rawNonce = _generateNonce();
+        final nonce = sha256.convert(utf8.encode(rawNonce)).toString();
+
+        final credential = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
+          nonce: nonce,
+        );
+
+        final fb_auth.AuthCredential oauthCredential = fb_auth.OAuthProvider('apple.com').credential(
+          idToken: credential.identityToken,
+          rawNonce: rawNonce,
+        );
+
+        await _fbAuth.signInWithCredential(oauthCredential);
+        return true;
+      }
+    } catch (e) {
+      debugPrint("Firebase Apple Sign-In failed: $e");
+      rethrow;
+    }
+  }
+
+  String _generateNonce([int length = 32]) {
+    final random = Random.secure();
+    return List.generate(length, (_) => '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._'[random.nextInt(62)]).join();
+  }
+
   // Email/Password Login
   Future<bool> loginWithEmail(String email, String password) async {
     try {
@@ -102,7 +143,9 @@ class AuthService extends ChangeNotifier {
     }
     _isAuthenticated = true;
     _token = 'mock-token-$userId';
-    _userName = userId == 'google_user' ? 'Google User' : userId.toUpperCase();
+    _userName = userId == 'google_user'
+        ? 'Google User'
+        : (userId == 'apple_user' ? 'Apple User' : userId.toUpperCase());
     _userEmail = '$userId@example.com';
     notifyListeners();
     return true;
@@ -116,5 +159,30 @@ class AuthService extends ChangeNotifier {
       } catch (_) {}
     }
     _clearAuth();
+  }
+
+  Future<void> deleteAccount(dynamic apiService) async {
+    try {
+      // 1. Purge backend data first
+      await apiService.deleteUserAccount();
+    } catch (e) {
+      debugPrint("Backend account deletion failed: $e");
+      rethrow;
+    }
+
+    // 2. Delete user in Firebase Auth
+    final currentUser = _fbAuth.currentUser;
+    if (currentUser != null) {
+      try {
+        await currentUser.delete();
+      } catch (e) {
+        debugPrint("Firebase Auth account deletion failed: $e");
+        // Re-throw so frontend can prompt user to re-authenticate if token expired
+        rethrow;
+      }
+    }
+
+    // 3. Clear local state and sign out
+    await logout();
   }
 }

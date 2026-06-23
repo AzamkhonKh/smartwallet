@@ -17,6 +17,7 @@ const Map<String, String> stringsUz = {
   'loginDemoUsername': 'Demo foydalanuvchi',
   'loginDemoButton': 'Demo sifatida kirish',
   'loginSignInFailed': 'Kirishda xato',
+  'loginApple': 'Apple orqali kirish',
 
   // Home screen
   'homeGreeting': 'Xayrli kun',
@@ -118,6 +119,10 @@ const Map<String, String> stringsUz = {
   'profileAccountOps': 'HISOB AMALLARI',
   'profileLogout': 'Chiqish',
   'profileLogoutSubtitle': 'Aqlli hamyondan chiqish',
+  'profileDeleteAccount': 'Hisobni o\'chirish',
+  'profileDeleteAccountSubtitle': 'Hisobni va barcha ma\'lumotlarni butunlay o\'chirish',
+  'deleteAccountConfirmTitle': 'Hisob o\'chirilsinmi?',
+  'deleteAccountConfirmContent': 'Ishonchingiz komilmi? Balla ma\'lumotlaringiz (tranzaksiyalar, hisoblar, kategoriyalar) butunlay o\'chiriladi va buni tiklab bo\'lmaydi.',
 
   // Language picker
   'languageSelect': 'Tilni tanlang',

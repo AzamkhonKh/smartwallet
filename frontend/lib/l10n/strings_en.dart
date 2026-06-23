@@ -17,6 +17,7 @@ const Map<String, String> stringsEn = {
   'loginDemoUsername': 'Demo Username',
   'loginDemoButton': 'Sign In as Demo User',
   'loginSignInFailed': 'Sign-in failed',
+  'loginApple': 'Continue with Apple',
 
   // Home screen
   'homeGreeting': 'Good day',
@@ -118,6 +119,10 @@ const Map<String, String> stringsEn = {
   'profileAccountOps': 'ACCOUNT OPERATIONS',
   'profileLogout': 'Logout',
   'profileLogoutSubtitle': 'Sign out of your smart wallet account',
+  'profileDeleteAccount': 'Delete Account',
+  'profileDeleteAccountSubtitle': 'Permanently delete your account and all data',
+  'deleteAccountConfirmTitle': 'Delete Account?',
+  'deleteAccountConfirmContent': 'Are you absolutely sure? All your data (transactions, accounts, categories) will be permanently deleted and cannot be undone.',
 
   // Language picker
   'languageSelect': 'Select Language',

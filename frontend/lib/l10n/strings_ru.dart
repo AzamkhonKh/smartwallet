@@ -17,6 +17,7 @@ const Map<String, String> stringsRu = {
   'loginDemoUsername': 'Демо-логин',
   'loginDemoButton': 'Войти как демо-пользователь',
   'loginSignInFailed': 'Ошибка входа',
+  'loginApple': 'Войти через Apple',
 
   // Home screen
   'homeGreeting': 'Добрый день',
@@ -118,6 +119,10 @@ const Map<String, String> stringsRu = {
   'profileAccountOps': 'ОПЕРАЦИИ С АККАУНТОМ',
   'profileLogout': 'Выйти',
   'profileLogoutSubtitle': 'Выйти из умного кошелька',
+  'profileDeleteAccount': 'Удалить аккаунт',
+  'profileDeleteAccountSubtitle': 'Безвозвратно удалить аккаунт и все данные',
+  'deleteAccountConfirmTitle': 'Удалить аккаунт?',
+  'deleteAccountConfirmContent': 'Вы абсолютно уверены? Все ваши данные (транзакции, счета, категории) будут удалены навсегда. Это действие нельзя отменить.',
 
   // Language picker
   'languageSelect': 'Выберите язык',

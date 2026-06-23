@@ -324,6 +324,16 @@ class ApiService {
       throw ApiException.fromResponse(response.statusCode, response.body);
     }
   }
+
+  Future<void> deleteUserAccount() async {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/api/auth/me'),
+      headers: await _getHeaders(),
+    );
+    if (response.statusCode != 200 && response.statusCode != 204) {
+      throw ApiException.fromResponse(response.statusCode, response.body);
+    }
+  }
 }
 
 String getCurrencySymbol(String? currencyCode) {
