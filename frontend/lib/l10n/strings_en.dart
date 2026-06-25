@@ -13,7 +13,7 @@ const Map<String, String> stringsEn = {
   // Login screen
   'loginGetStarted': 'Get Started',
   'loginGoogle': 'Continue with Google',
-  'loginOr': 'OR USE DEMO',
+  'loginOr': 'OTHER METHODS',
   'loginDemoUsername': 'Demo Username',
   'loginDemoButton': 'Sign In as Demo User',
   'loginSignInFailed': 'Sign-in failed',
@@ -51,9 +51,11 @@ const Map<String, String> stringsEn = {
   'gemmaGenerate': 'Generate Gemma Insights',
   'gemmaWaiting': 'Insights will become available after parsing is complete.',
   'deleteScanTitle': 'Delete Scan?',
-  'deleteScanContent': 'This will remove the transaction and update your balances.',
+  'deleteScanContent':
+      'This will remove the transaction and update your balances.',
   'duplicateTitle': 'Possible Duplicate Detected',
-  'duplicateDescription': 'This transaction matches another record (Merchant, Date, and Amount match). Verify if it is a duplicate.',
+  'duplicateDescription':
+      'This transaction matches another record (Merchant, Date, and Amount match). Verify if it is a duplicate.',
   'keepBoth': 'Keep Both',
   'deleteDuplicate': 'Delete Duplicate',
   'gemmaProcessing': 'Gemma 3n is generating recommendations...',
@@ -69,7 +71,8 @@ const Map<String, String> stringsEn = {
   'formAmount': 'Total Amount',
   'formAddress': 'Merchant Address (Optional)',
   'formCategories': 'CATEGORIES (SELECT MULTIPLE TAGS)',
-  'formNoCategoriesHint': 'No categories available. Please add some in the Categories tab.',
+  'formNoCategoriesHint':
+      'No categories available. Please add some in the Categories tab.',
   'formLineItems': 'LINE ITEMS',
   'formAddItem': 'Add Item',
   'formNoItems': 'No items added yet. Click Add Item to enter products.',
@@ -87,7 +90,8 @@ const Map<String, String> stringsEn = {
 
   // Accounts screen
   'accountsTitle': 'Accounts',
-  'accountsSubtitle': 'Manage your bank accounts, digital wallets, cash balances, and cards.',
+  'accountsSubtitle':
+      'Manage your bank accounts, digital wallets, cash balances, and cards.',
   'accountsEmpty': 'No accounts found. Add one using the top right button.',
   'accountsCreateTitle': 'Create New Account',
   'accountsName': 'Account Name',
@@ -96,7 +100,8 @@ const Map<String, String> stringsEn = {
   'accountsCurrency': 'Currency',
   'accountsCreate': 'Create Account',
   'accountsDeleteTitle': 'Delete Account?',
-  'accountsDeleteContent': 'Are you sure you want to delete "{name}"? All transactions associated with this account will also be deleted.',
+  'accountsDeleteContent':
+      'Are you sure you want to delete "{name}"? All transactions associated with this account will also be deleted.',
 
   // Profile screen
   'profileTitle': 'Profile',
@@ -120,9 +125,11 @@ const Map<String, String> stringsEn = {
   'profileLogout': 'Logout',
   'profileLogoutSubtitle': 'Sign out of your smart wallet account',
   'profileDeleteAccount': 'Delete Account',
-  'profileDeleteAccountSubtitle': 'Permanently delete your account and all data',
+  'profileDeleteAccountSubtitle':
+      'Permanently delete your account and all data',
   'deleteAccountConfirmTitle': 'Delete Account?',
-  'deleteAccountConfirmContent': 'Are you absolutely sure? All your data (transactions, accounts, categories) will be permanently deleted and cannot be undone.',
+  'deleteAccountConfirmContent':
+      'Are you absolutely sure? All your data (transactions, accounts, categories) will be permanently deleted and cannot be undone.',
 
   // Language picker
   'languageSelect': 'Select Language',
@@ -149,7 +156,8 @@ const Map<String, String> stringsEn = {
   'loading': 'Loading...',
 
   // Errors (AppSnackBar defaults)
-  'errorNetwork': 'Could not connect to the server. Check your internet connection.',
+  'errorNetwork':
+      'Could not connect to the server. Check your internet connection.',
   'error400': 'Invalid request. Please check your input and try again.',
   'error401': 'You are not signed in. Please log in and try again.',
   'error403': 'You do not have permission to perform this action.',
@@ -165,6 +173,7 @@ const Map<String, String> stringsEn = {
   'successBothKept': 'Both transactions kept. Flags cleared.',
 
   // Formatted strings (use {placeholder})
-  'scanQueuedSuccess': 'Successfully queued {count} receipts! Processing in the background.',
+  'scanQueuedSuccess':
+      'Successfully queued {count} receipts! Processing in the background.',
   'uploadingBatch': 'Uploading {count} receipts...',
 };

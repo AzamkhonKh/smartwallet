@@ -70,4 +70,6 @@ jobs:
           script: |
             cd /srv/smartwallet
             podman-compose pull backend
-            podman-compose up -d
+            podman-compose stop backend
+            podman-compose rm -f backend
+            podman-compose up -d backend

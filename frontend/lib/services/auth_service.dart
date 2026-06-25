@@ -95,6 +95,7 @@ class AuthService extends ChangeNotifier {
         final fb_auth.AuthCredential oauthCredential = fb_auth.OAuthProvider('apple.com').credential(
           idToken: credential.identityToken,
           rawNonce: rawNonce,
+          accessToken: credential.authorizationCode,
         );
 
         await _fbAuth.signInWithCredential(oauthCredential);
