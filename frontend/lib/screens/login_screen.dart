@@ -6,6 +6,7 @@ import '../services/auth_service.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/gradient_button.dart';
 import '../widgets/glass_card.dart';
+import '../utils/auth_error_handler.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -49,12 +50,57 @@ class _LoginScreenState extends State<LoginScreen>
 
   void _showError(String message) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: const Color(0xFFC70039),
-      ),
-    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          backgroundColor: const Color(0xFF1E1128),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: const BorderSide(color: Color(0xFFFF4D6D), width: 1),
+          ),
+          elevation: 8,
+          duration: const Duration(seconds: 4),
+          content: Row(
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFF4D6D).withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(
+                  Icons.error_outline_rounded,
+                  color: Color(0xFFFF4D6D),
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  message,
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          action: SnackBarAction(
+            label: 'Dismiss',
+            textColor: const Color(0xFFFF4D6D),
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+          ),
+        ),
+      );
   }
 
   Future<void> _submit() async {
@@ -80,7 +126,8 @@ class _LoginScreenState extends State<LoginScreen>
         await auth.loginWithEmail(email, password);
       }
     } catch (e) {
-      _showError(e.toString().split(']').last.trim());
+      final msg = friendlyAuthError(e);
+      if (msg != null) _showError(msg);
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -264,7 +311,8 @@ class _LoginScreenState extends State<LoginScreen>
                               try {
                                 await Provider.of<AuthService>(context, listen: false).loginWithGoogle();
                               } catch (e) {
-                                _showError('${l10n.loginSignInFailed}: ${e.toString().split(']').last.trim()}');
+                                final msg = friendlyAuthError(e);
+                                if (msg != null && mounted) _showError(msg);
                               } finally {
                                 if (mounted) setState(() => _isLoading = false);
                               }
@@ -301,7 +349,8 @@ class _LoginScreenState extends State<LoginScreen>
                               try {
                                 await Provider.of<AuthService>(context, listen: false).loginWithApple();
                               } catch (e) {
-                                _showError('${l10n.loginSignInFailed}: ${e.toString().split(']').last.trim()}');
+                                final msg = friendlyAuthError(e);
+                                if (msg != null && mounted) _showError(msg);
                               } finally {
                                 if (mounted) setState(() => _isLoading = false);
                               }

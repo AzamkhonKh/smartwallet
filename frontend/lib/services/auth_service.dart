@@ -4,7 +4,15 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
+
+/// Logs to both Flutter's debugPrint (DevTools) and stderr (visible in
+/// xcrun simctl log stream / Console.app / idevicesyslog).
+void _log(String msg) {
+  debugPrint(msg);
+  if (!kIsWeb) stderr.writeln('[Spendy] $msg');
+}
 
 class AuthService extends ChangeNotifier {
   bool _isAuthenticated = false;
@@ -92,24 +100,41 @@ class AuthService extends ChangeNotifier {
           nonce: nonce,
         );
 
+        // Diagnostic logging — visible in flutter run, xcrun simctl log stream, and Console.app
+        _log('Apple credential received:');
+        _log('  userIdentifier: ${credential.userIdentifier}');
+        _log('  identityToken: ${credential.identityToken != null ? "[present, ${credential.identityToken!.length} chars]" : "NULL ⚠️"}');
+        _log('  authorizationCode: ${credential.authorizationCode.isNotEmpty ? "[present]" : "empty"}');
+        _log('  email: ${credential.email}');
+
+        if (credential.identityToken == null) {
+          throw Exception(
+            'Apple did not return an identity token. '
+            'On simulator: sign into iCloud (Settings → Apple ID). '
+            'On device: ensure "Sign in with Apple" is enabled for '
+            'App ID com.recipewallet.spendy in Apple Developer Console.',
+          );
+        }
+
         final fb_auth.AuthCredential oauthCredential = fb_auth.OAuthProvider('apple.com').credential(
           idToken: credential.identityToken,
           rawNonce: rawNonce,
-          accessToken: credential.authorizationCode,
+          accessToken: credential.authorizationCode, // Required: Firebase uses this to complete Apple's OAuth token exchange
         );
 
         await _fbAuth.signInWithCredential(oauthCredential);
         return true;
       }
     } catch (e) {
-      debugPrint("Firebase Apple Sign-In failed: $e");
+      _log('🔴 Apple Sign-In failed: $e');
       rethrow;
     }
   }
 
   String _generateNonce([int length = 32]) {
+    const charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     final random = Random.secure();
-    return List.generate(length, (_) => '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._'[random.nextInt(62)]).join();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
   }
 
   // Email/Password Login
