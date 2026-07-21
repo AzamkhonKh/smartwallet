@@ -167,4 +167,23 @@ const Map<String, String> stringsUz = {
   // Formatted
   'scanQueuedSuccess': '{count} ta chek navbatga qo\'shildi! Fon rejimida qayta ishlanmoqda.',
   'uploadingBatch': '{count} ta chek yuklanmoqda...',
+
+  // AI Consent
+  'aiConsentTitle': 'Sun\'iy intellektga ruxsat',
+  'aiConsentSubtitle': 'Maxfiylik va ma\'lumotlar almashinuvi',
+  'aiConsentDesc': 'Cheklarni avtomatik skanerlash va shaxsiy maslahatlar berish uchun Spendy xavfsiz sun\'iy intellekt (AI) xizmatlaridan foydalanadi.',
+  'aiConsentWhoTitle': 'Ma\'lumotlar kimga yuboriladi?',
+  'aiConsentWhoDesc': 'Ma\'lumotlar OpenRouter (Gemini modellari) va Mistral AI tizimlariga xavfsiz tarzda yuboriladi. Ular ma\'lumotlaringizni o\'z modellarini o\'qitish uchun saqlab qolmaydi.',
+  'aiConsentWhatTitle': 'Qanday ma\'lumotlar yuboriladi?',
+  'aiConsentWhatDesc': 'Chek rasmi va matni OCR uchun, tranzaksiya tafsilotlari esa tejamkorlik maslahatlarini olish uchun yuboriladi.',
+  'aiConsentProtectedTitle': 'Xavfsizlik qanday ta\'minlanadi?',
+  'aiConsentProtectedDesc': 'Barcha so\'rovlar shifrlangan. Shaxsiy ma\'lumotlar (elektron pochta, parollar) hech qachon baham ko\'rilmaydi.',
+  'aiConsentDecline': 'Rad etish',
+  'aiConsentAgree': 'Rozilik berish',
+  'aiConsentSnackbarDecline': 'AI funksiyalari roziliksiz faollashtirilmaydi.',
+  'aiConsentSnackbarAgree': 'AI funksiyalari muvaffaqiyatli faollashtirildi!',
+  'profileAiConsent': 'AI ga ma\'lumot yuborish',
+  'profileAiConsentSub': 'Tashqi AI xizmatlariga ma\'lumot yuborishni boshqarish',
+  'profilePrivacyPolicy': 'Maxfiylik siyosati',
+  'profilePrivacyPolicySub': 'Ma\'lumotlarni himoya qilish qoidalarini ko\'rish',
 };

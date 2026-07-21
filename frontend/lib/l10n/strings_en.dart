@@ -176,4 +176,23 @@ const Map<String, String> stringsEn = {
   'scanQueuedSuccess':
       'Successfully queued {count} receipts! Processing in the background.',
   'uploadingBatch': 'Uploading {count} receipts...',
+
+  // AI Consent
+  'aiConsentTitle': 'AI Privacy Consent',
+  'aiConsentSubtitle': 'Privacy & Data Sharing Disclosure',
+  'aiConsentDesc': 'To provide automated receipt scanning and personalized spending tips, Spendy integrates with secure third-party AI services.',
+  'aiConsentWhoTitle': 'Who is the data sent to?',
+  'aiConsentWhoDesc': 'We securely send receipt details to OpenRouter (running Gemini models) and Mistral AI. They do not store your data to train their models.',
+  'aiConsentWhatTitle': 'What data is sent?',
+  'aiConsentWhatDesc': 'Receipt images/text are sent for OCR processing, and transaction summaries are sent to generate saving advice.',
+  'aiConsentProtectedTitle': 'How is it protected?',
+  'aiConsentProtectedDesc': 'All requests are encrypted. No personal information like email or passwords is ever shared.',
+  'aiConsentDecline': 'Decline',
+  'aiConsentAgree': 'Agree & Enable',
+  'aiConsentSnackbarDecline': 'AI features are disabled without consent.',
+  'aiConsentSnackbarAgree': 'AI features enabled successfully!',
+  'profileAiConsent': 'AI Sharing Consent',
+  'profileAiConsentSub': 'Authorize data sharing with third-party AI services',
+  'profilePrivacyPolicy': 'Privacy Policy',
+  'profilePrivacyPolicySub': 'View our user data protection practices',
 };

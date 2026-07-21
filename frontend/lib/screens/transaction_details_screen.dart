@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/api_service.dart';
 import '../services/app_snack_bar.dart';
+import '../services/ai_consent_service.dart';
+import '../l10n/app_localizations.dart';
 import 'transaction_form_sheet.dart';
 
 class TransactionDetailsScreen extends StatefulWidget {
@@ -73,6 +75,14 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
   }
 
   Future<void> _fetchGemmaSuggestions() async {
+    final consented = await AiConsentService.requestConsent(context);
+    if (!consented) {
+      if (mounted) {
+        AppSnackBar.error(context, AppLocalizations.of(context).aiConsentSnackbarDecline);
+      }
+      return;
+    }
+
     setState(() {
       _isLoadingSuggestions = true;
       _suggestions = null;
@@ -539,7 +549,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 4.0),
                     child: Text(
-                      '≈ ${getCurrencySymbol(_transaction['primaryCurrency'] as String)}${((_transaction['convertedAmount'] ?? total) as double).toStringAsFixed(2)}',
+                      '≈ ${getCurrencySymbol(_transaction['primaryCurrency'] as String)}${(((_transaction['convertedAmount'] ?? total) as num).toDouble()).toStringAsFixed(2)}',
                       style: GoogleFonts.inter(
                         color: Colors.white38,
                         fontSize: 18,

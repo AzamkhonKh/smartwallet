@@ -167,4 +167,23 @@ const Map<String, String> stringsRu = {
   // Formatted
   'scanQueuedSuccess': 'Добавлено {count} чеков! Обработка в фоне.',
   'uploadingBatch': 'Загрузка {count} чеков...',
+
+  // AI Consent
+  'aiConsentTitle': 'Согласие на обработку ИИ',
+  'aiConsentSubtitle': 'Политика конфиденциальности ИИ',
+  'aiConsentDesc': 'Для автоматического сканирования чеков и получения персональных советов Spendy интегрируется с безопасными ИИ-сервисами.',
+  'aiConsentWhoTitle': 'Кому отправляются данные?',
+  'aiConsentWhoDesc': 'Данные безопасно отправляются в OpenRouter (модели Gemini) и Mistral AI. Они не сохраняют данные для обучения.',
+  'aiConsentWhatTitle': 'Какие данные отправляются?',
+  'aiConsentWhatDesc': 'Изображения и тексты чеков отправляются для распознавания (OCR), а сводка транзакций — для получения советов по экономии.',
+  'aiConsentProtectedTitle': 'Как данные защищены?',
+  'aiConsentProtectedDesc': 'Все запросы шифруются. Личные данные (пароли, почта) никогда не передаются.',
+  'aiConsentDecline': 'Отклонить',
+  'aiConsentAgree': 'Принять и включить',
+  'aiConsentSnackbarDecline': 'Функции ИИ отключены без вашего согласия.',
+  'aiConsentSnackbarAgree': 'Функции ИИ успешно включены!',
+  'profileAiConsent': 'Согласие на обработку ИИ',
+  'profileAiConsentSub': 'Разрешить передачу данных сторонним ИИ-сервисам',
+  'profilePrivacyPolicy': 'Политика конфиденциальности',
+  'profilePrivacyPolicySub': 'Посмотреть правила защиты данных пользователей',
 };

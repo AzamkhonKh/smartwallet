@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen>
                 width: 36,
                 height: 36,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFF4D6D).withValues(alpha: 0.15),
+                  color: const Color(0xFFFF4D6D).withOpacity(0.15),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Icon(
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen>
               height: 300,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFF6C63FF).withValues(alpha: 0.15),
+                color: const Color(0xFF6C63FF).withOpacity(0.15),
               ),
             ),
           ),
@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen>
               height: 250,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFF00D2FF).withValues(alpha: 0.15),
+                color: const Color(0xFF00D2FF).withOpacity(0.15),
               ),
             ),
           ),
@@ -186,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen>
                         letterSpacing: 2.0,
                         shadows: [
                           Shadow(
-                            color: const Color(0xFF6C63FF).withValues(alpha: 0.8),
+                            color: const Color(0xFF6C63FF).withOpacity(0.8),
                             blurRadius: 10,
                           ),
                         ],
@@ -208,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen>
                     GlassCard(
                       radius: 28,
                       padding: const EdgeInsets.all(24),
-                      borderColor: Colors.white.withValues(alpha: 0.08),
+                      borderColor: Colors.white.withOpacity(0.08),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -386,10 +386,10 @@ class _LoginScreenState extends State<LoginScreen>
         labelStyle: const TextStyle(color: Colors.white38),
         prefixIcon: Icon(icon, color: Colors.white38),
         filled: true,
-        fillColor: Colors.white.withValues(alpha: 0.03),
+        fillColor: Colors.white.withOpacity(0.03),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+          borderSide: BorderSide(color: Colors.white.withOpacity(0.1)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),

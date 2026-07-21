@@ -411,7 +411,7 @@ class _AccountsScreenState extends State<AccountsScreen> {
                         final id = acc['id'] as String;
                         final name = acc['name'] ?? 'Wallet';
                         final type = acc['type'] ?? 'CASH_WALLET';
-                        final balance = (acc['balance'] ?? 0.0) as double;
+                        final balance = ((acc['balance'] ?? 0.0) as num).toDouble();
                         final currency = acc['currency'] ?? 'USD';
                         final symbol = getCurrencySymbol(currency);
 
@@ -517,7 +517,7 @@ class _AccountsScreenState extends State<AccountsScreen> {
                                                 .toString()
                                                 .toUpperCase())
                                       Text(
-                                        '≈ ${getCurrencySymbol(acc['primaryCurrency'] as String)}${((acc['convertedBalance'] ?? 0.0) as double).toStringAsFixed(2)}',
+                                        '≈ ${getCurrencySymbol(acc['primaryCurrency'] as String)}${((acc['convertedBalance'] ?? 0.0) as num).toDouble().toStringAsFixed(2)}',
                                         style: GoogleFonts.inter(
                                           color: Colors.white70,
                                           fontSize: 16,

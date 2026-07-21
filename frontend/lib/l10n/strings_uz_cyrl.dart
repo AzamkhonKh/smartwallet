@@ -167,4 +167,23 @@ const Map<String, String> stringsUzCyrl = {
   // Formatted
   'scanQueuedSuccess': '{count} та чек навбатга қўшилди! Фон режимида қайта ишланмоқда.',
   'uploadingBatch': '{count} та чек юкланмоқда...',
+
+  // AI Consent
+  'aiConsentTitle': 'Сунъий интеллектга рухсат',
+  'aiConsentSubtitle': 'Махфийлик ва маълумотlar алмашинуви',
+  'aiConsentDesc': 'Чекларни автоматик сканерлаш ва шахсий маслаҳатлар бериш учун Spendy хавфсиз сунъий интеллект (AI) хизматларидан фойдаланади.',
+  'aiConsentWhoTitle': 'Маълумотлар кимга юборилади?',
+  'aiConsentWhoDesc': 'Маълумотлар OpenRouter (Gemini моделлари) ва Mistral AI тизимларига хавфсиз тарзда юборилади. Улар маълумотларингизни ўз моделларини ўқитиш учун сақлаб қолмайди.',
+  'aiConsentWhatTitle': 'Қандай маълумотлар юборилади?',
+  'aiConsentWhatDesc': 'Чеки расми ва матни OCR учун, трансакция тафсилотлари эса тежамкорлик маслаҳатларини олиш учун юборилади.',
+  'aiConsentProtectedTitle': 'Хавфсизлик қандай таъминланади?',
+  'aiConsentProtectedDesc': 'Барча сўровлар шифрланган. Шахсий маълумотлар (электрон почта, пароллар) ҳеч қачон баҳам кўрилмайди.',
+  'aiConsentDecline': 'Рад этиш',
+  'aiConsentAgree': 'Розилик бериш',
+  'aiConsentSnackbarDecline': 'AI функциялари розиликсиз фаоллаштирилмайди.',
+  'aiConsentSnackbarAgree': 'AI функциялари муваффақиятли фаоллаштирилди!',
+  'profileAiConsent': 'AI га маълумот юбориш',
+  'profileAiConsentSub': 'Ташқи AI хизматларига маълумот юборишни бошқариш',
+  'profilePrivacyPolicy': 'Махфийлик сиёсати',
+  'profilePrivacyPolicySub': 'Маълумотларни ҳимоя қилиш қоидаларини кўриш',
 };

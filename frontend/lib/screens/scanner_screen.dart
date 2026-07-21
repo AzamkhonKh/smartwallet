@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import '../services/api_service.dart';
 import '../services/app_snack_bar.dart';
+import '../services/ai_consent_service.dart';
+import '../l10n/app_localizations.dart';
 import 'transaction_details_screen.dart';
 
 class ScannerScreen extends StatefulWidget {
@@ -45,6 +47,14 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   Future<void> _handleImageSelection(XFile? image) async {
     if (image == null) return;
+
+    final consented = await AiConsentService.requestConsent(context);
+    if (!consented) {
+      if (mounted) {
+        AppSnackBar.error(context, AppLocalizations.of(context).aiConsentSnackbarDecline);
+      }
+      return;
+    }
 
     setState(() {
       _isUploading = true;
@@ -91,6 +101,14 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   Future<void> _handleBatchImageSelection(List<XFile>? images) async {
     if (images == null || images.isEmpty) return;
+
+    final consented = await AiConsentService.requestConsent(context);
+    if (!consented) {
+      if (mounted) {
+        AppSnackBar.error(context, AppLocalizations.of(context).aiConsentSnackbarDecline);
+      }
+      return;
+    }
 
     int totalCount = images.length;
     setState(() {

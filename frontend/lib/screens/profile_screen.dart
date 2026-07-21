@@ -12,6 +12,7 @@ import '../widgets/glass_card.dart';
 import 'categories_screen.dart';
 import 'statistics_screen.dart';
 import 'exchange_rates_screen.dart';
+import '../services/ai_consent_service.dart';
 
 class ProfileScreen extends StatefulWidget {
   final ApiService apiService;
@@ -27,11 +28,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _userFullName = 'Demo User';
   String _primaryCurrency = 'USD';
   final TextEditingController _nameController = TextEditingController();
+  bool _aiConsentStatus = false;
 
   @override
   void initState() {
     super.initState();
     _loadProfile();
+    _loadAiConsent();
+  }
+
+  Future<void> _loadAiConsent() async {
+    final status = await AiConsentService.getConsentState();
+    if (mounted) {
+      setState(() {
+        _aiConsentStatus = status ?? false;
+      });
+    }
   }
 
   Future<void> _loadProfile() async {
@@ -97,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       width: 48,
                       height: 5,
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.1),
+                        color: Colors.white.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
@@ -122,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       hintText: l10n.profileNameHint,
                       hintStyle: const TextStyle(color: Colors.white24),
                       filled: true,
-                      fillColor: Colors.white.withValues(alpha: 0.03),
+                      fillColor: Colors.white.withOpacity(0.03),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide.none,
@@ -136,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.03),
+                      color: Colors.white.withOpacity(0.03),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: DropdownButtonHideUnderline(
@@ -201,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: 48,
                   height: 5,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.1),
+                    color: Colors.white.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
@@ -335,7 +347,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color(0xFF6C63FF).withValues(alpha: 0.3),
+                              color: const Color(0xFF6C63FF).withOpacity(0.3),
                               blurRadius: 16,
                               offset: const Offset(0, 6),
                             ),
@@ -375,7 +387,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 16),
                       OutlinedButton.icon(
                         style: OutlinedButton.styleFrom(
-                          side: BorderSide(color: Colors.white.withValues(alpha: 0.15)),
+                          side: BorderSide(color: Colors.white.withOpacity(0.15)),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -411,7 +423,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ).then((_) => _loadProfile()),
                       ),
-                      Divider(color: Colors.white.withValues(alpha: 0.05), height: 1),
+                      Divider(color: Colors.white.withOpacity(0.05), height: 1),
                       _buildSettingsTile(
                         icon: Icons.analytics_outlined,
                         iconColor: const Color(0xFF00D2FF),
@@ -424,7 +436,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ).then((_) => _loadProfile()),
                       ),
-                      Divider(color: Colors.white.withValues(alpha: 0.05), height: 1),
+                      Divider(color: Colors.white.withOpacity(0.05), height: 1),
                       _buildSettingsTile(
                         icon: Icons.currency_exchange_rounded,
                         iconColor: Colors.orangeAccent,
@@ -437,14 +449,61 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ).then((_) => _loadProfile()),
                       ),
-                      Divider(color: Colors.white.withValues(alpha: 0.05), height: 1),
+                      Divider(color: Colors.white.withOpacity(0.05), height: 1),
                       _buildSettingsTile(
                         icon: Icons.language_rounded,
-                        iconColor: const Color(0xFF6C63FF).withValues(alpha: 0.8),
+                        iconColor: const Color(0xFF6C63FF).withOpacity(0.8),
                         title: l10n.profileLanguage,
                         subtitle: l10n.profileLanguageSubtitle,
                         onTap: _showLanguagePicker,
                         trailing: _buildCurrentLanguageBadge(),
+                      ),
+                      Divider(color: Colors.white.withOpacity(0.05), height: 1),
+                      _buildSettingsTile(
+                        icon: Icons.psychology_rounded,
+                        iconColor: const Color(0xFF6C63FF),
+                        title: l10n.profileAiConsent,
+                        subtitle: l10n.profileAiConsentSub,
+                        onTap: () async {
+                          final newValue = !_aiConsentStatus;
+                          await AiConsentService.setConsent(newValue);
+                          setState(() {
+                            _aiConsentStatus = newValue;
+                          });
+                          if (mounted) {
+                            if (newValue) {
+                              AppSnackBar.success(context, l10n.aiConsentSnackbarAgree);
+                            } else {
+                              AppSnackBar.warning(context, l10n.aiConsentSnackbarDecline);
+                            }
+                          }
+                        },
+                        trailing: Switch(
+                          value: _aiConsentStatus,
+                          onChanged: (val) async {
+                            await AiConsentService.setConsent(val);
+                            setState(() {
+                              _aiConsentStatus = val;
+                            });
+                            if (mounted) {
+                              if (val) {
+                                AppSnackBar.success(context, l10n.aiConsentSnackbarAgree);
+                              } else {
+                                AppSnackBar.warning(context, l10n.aiConsentSnackbarDecline);
+                              }
+                            }
+                          },
+                          activeColor: const Color(0xFF00D2FF),
+                          activeTrackColor: const Color(0xFF6C63FF).withOpacity(0.5),
+                        ),
+                      ),
+                      Divider(color: Colors.white.withOpacity(0.05), height: 1),
+                      _buildSettingsTile(
+                        icon: Icons.privacy_tip_outlined,
+                        iconColor: const Color(0xFF00D2FF),
+                        title: l10n.profilePrivacyPolicy,
+                        subtitle: l10n.profilePrivacyPolicySub,
+                        onTap: () => AiConsentService.showPrivacyPolicy(context),
                       ),
                     ],
                   ),
@@ -464,7 +523,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         subtitle: l10n.profileLogoutSubtitle,
                         onTap: () => Provider.of<AuthService>(context, listen: false).logout(),
                       ),
-                      Divider(color: Colors.white.withValues(alpha: 0.05), height: 1),
+                      Divider(color: Colors.white.withOpacity(0.05), height: 1),
                       _buildSettingsTile(
                         icon: Icons.delete_forever_rounded,
                         iconColor: const Color(0xFFE94560),
@@ -504,7 +563,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: iconColor.withValues(alpha: 0.1),
+          color: iconColor.withOpacity(0.1),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: iconColor),

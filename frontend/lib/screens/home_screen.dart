@@ -10,6 +10,7 @@ import 'scanner_screen.dart';
 import 'transaction_details_screen.dart';
 import 'transaction_form_sheet.dart';
 import 'profile_screen.dart';
+import '../services/ai_consent_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,6 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
     final authService = Provider.of<AuthService>(context, listen: false);
     _apiService = ApiService(authService);
     _loadData();
+
+    // Check for AI sharing consent on startup
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final consentState = await AiConsentService.getConsentState();
+      if (consentState == null && mounted) {
+        await AiConsentService.requestConsent(context);
+      }
+    });
   }
 
   @override
@@ -96,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       double total = 0.0;
       for (var tx in txs) {
-        total += (tx['convertedAmount'] ?? tx['totalAmount'] ?? 0.0) as double;
+        total += ((tx['convertedAmount'] ?? tx['totalAmount'] ?? 0.0) as num).toDouble();
       }
 
       setState(() {
@@ -643,7 +652,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 2),
                                     child: Text(
-                                      '${getCurrencySymbol(tx['primaryCurrency'] ?? _primaryCurrency)}${((tx['convertedAmount'] ?? total) as double).toStringAsFixed(2)}',
+                                      '${getCurrencySymbol(tx['primaryCurrency'] ?? _primaryCurrency)}${((tx['convertedAmount'] ?? total) as num).toDouble().toStringAsFixed(2)}',
                                       style: GoogleFonts.inter(
                                         color: Colors.white38,
                                         fontSize: 11,

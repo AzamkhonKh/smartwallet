@@ -217,6 +217,25 @@ class AppLocalizations {
   String get successProfileUpdated => _s('successProfileUpdated');
   String get successTransactionSaved => _s('successTransactionSaved');
   String get successBothKept => _s('successBothKept');
+
+  // ── AI Consent ────────────────────────────────────────────────────────────
+  String get aiConsentTitle => _s('aiConsentTitle');
+  String get aiConsentSubtitle => _s('aiConsentSubtitle');
+  String get aiConsentDesc => _s('aiConsentDesc');
+  String get aiConsentWhoTitle => _s('aiConsentWhoTitle');
+  String get aiConsentWhoDesc => _s('aiConsentWhoDesc');
+  String get aiConsentWhatTitle => _s('aiConsentWhatTitle');
+  String get aiConsentWhatDesc => _s('aiConsentWhatDesc');
+  String get aiConsentProtectedTitle => _s('aiConsentProtectedTitle');
+  String get aiConsentProtectedDesc => _s('aiConsentProtectedDesc');
+  String get aiConsentDecline => _s('aiConsentDecline');
+  String get aiConsentAgree => _s('aiConsentAgree');
+  String get aiConsentSnackbarDecline => _s('aiConsentSnackbarDecline');
+  String get aiConsentSnackbarAgree => _s('aiConsentSnackbarAgree');
+  String get profileAiConsent => _s('profileAiConsent');
+  String get profileAiConsentSub => _s('profileAiConsentSub');
+  String get profilePrivacyPolicy => _s('profilePrivacyPolicy');
+  String get profilePrivacyPolicySub => _s('profilePrivacyPolicySub');
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

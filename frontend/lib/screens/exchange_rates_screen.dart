@@ -161,7 +161,7 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
                       itemBuilder: (context, index) {
                         final rateObj = _filteredRates[index];
                         final code = (rateObj['currencyCode'] ?? '').toString().toUpperCase();
-                        final rate = (rateObj['rate'] ?? 1.0) as double;
+                        final rate = ((rateObj['rate'] ?? 1.0) as num).toDouble();
                         final symbol = getCurrencySymbol(code);
 
                         // Highlight common currencies

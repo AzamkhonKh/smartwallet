@@ -43,7 +43,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
 
     for (var tx in txs) {
       final categoriesList = tx['categories'] as List?;
-      final amount = (tx['totalAmount'] ?? 0.0) as double;
+      final amount = ((tx['totalAmount'] ?? 0.0) as num).toDouble();
       totalSum += amount;
 
       if (categoriesList == null || categoriesList.isEmpty) {
